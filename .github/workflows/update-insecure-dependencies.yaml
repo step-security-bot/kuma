@@ -11,6 +11,11 @@ jobs:
     outputs:
       branches: ${{ steps.generate-matrix.outputs.branches }}
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        with:
+          egress-policy: audit
+
       - id: generate-matrix
         run: |
           # The head -1 is because GITHUB_OUTPUT is easier to work with single line output and this file is created with automation in `lifecycle.yaml`
@@ -30,6 +35,11 @@ jobs:
         branch: ${{ fromJSON(needs.build-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        with:
+          egress-policy: audit
+
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c
         with:

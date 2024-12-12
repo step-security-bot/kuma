@@ -13,6 +13,11 @@ jobs:
     permissions:
       pull-requests: write
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        with:
+          egress-policy: audit
+
       - name: Add checklist comment
         if: github.event.pull_request.author != 'app/dependabot'
         uses: marocchino/sticky-pull-request-comment@daa4a82a0a3f6c162c02b83fa44b3ab83946f7cb # v2.9.0
